@@ -1,2 +1,2 @@
 # jerry
-Object detection
+Object detection project
