@@ -1,6 +1,9 @@
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+import numpy as np
 
-def plt_rectangle(plt,x1,y1,x2,y2,label="", color="yellow"):
+def plt_rectangle(plt,x1,y1,x2,y2,label="", color="yellow", linewidth= 2):
     '''
     == Input ==
     
@@ -10,8 +13,7 @@ def plt_rectangle(plt,x1,y1,x2,y2,label="", color="yellow"):
     y1    : top left corner y coordinate
     x2    : bottom right corner x coordinate
     y2    : bottom right corner y coordinate
-    '''
-    linewidth = 2
+    ''' 
     if(label != ""):
         plt.text(x1,y1,label,fontsize=20,backgroundcolor="magenta")
 
@@ -56,3 +58,32 @@ def plot_loss_acc(history):
         title += ', Validation accuracy: {:.2f}%'.format(final_val_acc * 100)
     plt.title(title)
     plt.legend()
+
+def plot_multiclass_heatmap(y_test, y_predict, labels):
+
+    y_pred = np.argmax(y_predict, axis=-1)
+    y_true=np.argmax(y_test, axis=-1)
+
+    cm = confusion_matrix(y_true, y_pred)
+
+    class_names = list(labels)
+
+    # Plot confusion matrix in a beautiful manner
+    plt.figure(figsize=(16, 14))
+    ax= plt.subplot()
+    sns.heatmap(cm, annot=True, ax = ax, fmt = 'g'); #annot=True to annotate cells
+
+    # labels, title and ticks
+    ax.set_xlabel('Predicted', fontsize=20)
+    ax.xaxis.set_label_position('bottom')
+    plt.xticks(rotation=90)
+    ax.xaxis.set_ticklabels(class_names, fontsize = 10)
+    ax.xaxis.tick_bottom()
+
+    ax.set_ylabel('True', fontsize=20)
+    ax.yaxis.set_ticklabels(class_names, fontsize = 10)
+    plt.yticks(rotation=0)
+
+    plt.title('Refined Confusion Matrix', fontsize=20)
+
+    plt.show()
