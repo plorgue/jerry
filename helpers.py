@@ -64,15 +64,25 @@ def plot_multiclass_heatmap(y_test, y_predict, labels):
     y_pred = np.argmax(y_predict, axis=-1)
     y_true=np.argmax(y_test, axis=-1)
 
-    cm = confusion_matrix(y_true, y_pred)
+    cm = confusion_matrix(y_true, y_pred, normalize='true')
+
+    # cm_normalized = []
+    # for ligne in cm : 
+    #     sum = np.sum(ligne)
+    #     new_ligne = []
+    #     for value in ligne : 
+    #         new_ligne.append(value/sum)
+    #     cm_normalized.append(new_ligne)
 
     class_names = list(labels)
 
     # Plot confusion matrix in a beautiful manner
     plt.figure(figsize=(16, 14))
     ax= plt.subplot()
-    sns.heatmap(cm, annot=True, ax = ax, fmt = 'g'); #annot=True to annotate cells
-
+    cm = cm*100
+    sns.heatmap(cm, annot=True, ax = ax, fmt = '.1f'); #annot=True to annotate cells
+    # for t in ax.texts: t.set_text(t.get_text()+ " %")
+    
     # labels, title and ticks
     ax.set_xlabel('Predicted', fontsize=20)
     ax.xaxis.set_label_position('bottom')
