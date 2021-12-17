@@ -5,3 +5,9 @@
 
 *.h5
 *.hdf5
+/runs
+/utils
+*.pt
+/__pycache__
+RCNN.ipynb
+faster-r-cnn.ipynb
