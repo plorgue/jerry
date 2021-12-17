@@ -248,3 +248,15 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+
+*.hdf5
+RCNN.ipynb
+faster-r-cnn.ipynb
+
+val_copy.txt
+
+models/*.hdf5
+tutorial.ipynb
+
+/data
